@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+
+{% block body %}
+    <h1>Fligths</h1>
+
+
+    <h2>Register Flights</h2>
+
+    <form action="{% url 'save' %}" method="POST">
+        {% csrf_token %}
+
+        <select name="origin" placeholder="origin">
+            {% for airport in airports %}
+            <option value="{{ airport.id }}">{{ airport.city }}</option>
+            {% endfor %}
+        </select>
+
+        <select name="destination" placeholder="destination">
+            {% for airport in airports %}
+            <option value="{{ airport.id }}">{{ airport.city }}</option>
+            {% endfor %}
+        </select>
+
+        <input type="number" name="duration">
+
+        <button type="submit">Guardar</button>
+    </form>
+
+    {% for flight in flights %}
+    <li>
+        <a>Flight #{{ flight.id }}: {{ flight.origin }} to {{ flight.destination }}</a>
+    </li>
+    {% endfor %}
+
+{% endblock %}
